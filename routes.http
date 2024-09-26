@@ -1,0 +1,26 @@
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "Caio",
+  "email": "ch@gmail.com",
+  "password": "123456"
+}
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+  "email": "ch@gmail.com",
+  "password": "123456"
+}
+
+###
+POST http://localhost:3000/tasks/118b540b-94e2-453c-9373-acd30ece132b
+Content-Type: application/json
+
+{
+  "title": "tarefa 1",
+  "content": "tarefa 1",
+  "status": "pendente"
+}
