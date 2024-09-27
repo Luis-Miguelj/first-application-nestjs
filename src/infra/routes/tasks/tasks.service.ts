@@ -6,8 +6,36 @@ import { PrismaService } from '@prisma/prisma.service'
 export class TasksService {
   constructor(private prisma: PrismaService) { }
 
-  async getTasks() {
+  async getTasks(id?: string) {
+    if (id) {
+      const tasks = await this.prisma.tasks.findMany({
+        where: {
+          recipientId: id
+        }
+      })
 
+      if (!tasks) {
+        return {
+          error: 'Tarefa não encontrada'
+        }
+      }
+
+      return {
+        tasks
+      }
+    }
+
+    const allTasks = await this.prisma.tasks.findMany()
+
+    if (!allTasks) {
+      return {
+        error: 'Nenhuma tarefa encontrada'
+      }
+    }
+
+    return {
+      tasks: allTasks
+    }
   }
 
   async createTasks(data: TaskTypeBody, id: string) {

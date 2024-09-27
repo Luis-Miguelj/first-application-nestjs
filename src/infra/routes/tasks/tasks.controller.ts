@@ -7,7 +7,39 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService) { }
 
   @Get()
-  async getTasks() { }
+  async getAllTasks() {
+    const { tasks, error } = await this.tasksService.getTasks()
+
+    if (error) {
+      return {
+        error: new Error(error)
+      }
+    }
+
+    return {
+      tasks
+    }
+  }
+
+  @Get(':id')
+  async getTasks(@Param() params: { id?: string }) {
+    const { id } = params
+
+    if (id) {
+      const tasksFilter = await this.tasksService.getTasks(id)
+
+      if (tasksFilter.error) {
+        return {
+          error: new Error(tasksFilter.error)
+        }
+      }
+
+      return {
+        tasks: tasksFilter.tasks
+      }
+    }
+
+  }
 
   @Post(':id')
   async create(@Body() body: TaskTypeBody, @Param() params: { id: string }) {
