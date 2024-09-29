@@ -26,5 +26,15 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/tasks/34b63c87-5893-41f5-8a1f-0526d4369e90
+GET http://localhost:3000/tasks
 Content-Type: application/json
+
+###
+PUT http://localhost:3000/tasks/update/c8b24d06-bb7b-4245-9e27-bd868cf19565
+Content-Type: application/json
+
+{
+  "title": "tarefa 1",
+  "content": "tarefa 1",
+  "status": "concluida"
+}

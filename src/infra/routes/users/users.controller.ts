@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body } from "@nestjs/common";
+import { Controller, Get, Post, Body, Req, Request } from "@nestjs/common";
 import { UserService } from "./users.service";
 import { UserTypeBody } from '@/utils/types/users-types.body';
+
 
 @Controller()
 export class UserController {
@@ -12,7 +13,7 @@ export class UserController {
   }
 
   @Post('/users')
-  async createUser(@Body() body: UserTypeBody) {
+  async createUser(@Body() body: UserTypeBody, @Req() req: Request) {
 
     const { email, name, password } = body;
 

@@ -77,4 +77,28 @@ export class TasksService {
     }
   }
 
+  async updateTasks(data: TaskTypeBody, id: string) {
+    const task = await this.prisma.tasks.update({
+      where: {
+        id
+      },
+      data: {
+        title: data.title,
+        content: data.content,
+        status: data.status
+      }
+    })
+
+    if (!task) {
+      return {
+        error: 'Erro ao atualizar tarefa'
+      }
+    }
+
+    return {
+      task
+    }
+
+  }
+
 }

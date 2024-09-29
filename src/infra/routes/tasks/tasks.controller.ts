@@ -1,4 +1,4 @@
-import { Controller, Body, Post, Get, Param } from '@nestjs/common'
+import { Controller, Body, Post, Get, Put, Param } from '@nestjs/common'
 import { TasksService } from './tasks.service';
 import type { TaskTypeBody } from '@/utils/types/tasks-types.body';
 
@@ -63,6 +63,31 @@ export class TasksController {
     return {
       tarefa: tasks.tarefa
     }
+  }
+
+
+  @Put('update/:id')
+  async updateTasks(@Body() body: TaskTypeBody, @Param() params: { id: string }) {
+    const { title, content, status } = body
+
+    const { id } = params
+
+    const tasks = await this.tasksService.updateTasks({
+      title,
+      content,
+      status,
+    }, id)
+
+    if (tasks.error) {
+      return {
+        error: new Error(tasks.error)
+      }
+    }
+
+    return {
+      tarefa: tasks.task
+    }
+
   }
 
 }
